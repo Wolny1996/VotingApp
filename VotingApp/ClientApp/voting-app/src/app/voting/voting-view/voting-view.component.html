@@ -1,0 +1,33 @@
+<p>voting-view works!</p>
+
+<main>
+    <title>
+        Voting App
+    </title>
+
+    <body>
+        <section class="tables-section">
+            @for (voter of voters; track voter.Id) {
+                <div>{{voter.FullName}}</div>
+                <div>{{voter.HasVoted}}</div>
+            }
+            @empty {
+                <span>No items found</span>
+            }
+            <!-- <div style="background-color: yellow;" *@for="let voter of voters"> -->
+
+            <!-- </div> -->
+
+            <!-- <div style="background-color: green;" *@for="let candidate of candidates">
+                <div>{{candidate.FullName}}</div>
+                <div>{{candidate.NumberOfVotes}}</div>
+            </div> -->
+        </section>
+
+        <hr>
+        
+        <section class="voting-section">
+
+        </section>
+    </body>
+</main>
