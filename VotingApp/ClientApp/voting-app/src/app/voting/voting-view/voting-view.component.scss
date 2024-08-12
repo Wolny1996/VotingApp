@@ -17,9 +17,17 @@ main {
                     display: flex;
                     flex-direction: row;
                     height: 40px;
+
+                    div {
+                        margin-bottom: auto;
+                        margin-top: auto;
+                        text-align: center;
+                        width: 100%;
+                    }
         
                     button {
                         border-radius: 50%;
+                        width: 40px;
                     }
                 }
         
@@ -46,6 +54,22 @@ main {
                         height: 100%;
                     }
                 }
+            }
+        }
+
+        .voting-section {
+            align-items: flex-start;
+            display: flex;
+            gap: 60px;
+
+            form {
+                display: flex;
+                gap: 20px;
+            }
+
+            button {
+                height: 57px;
+                width: 250px;
             }
         }
     }

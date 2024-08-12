@@ -6,7 +6,7 @@
             <div class="voters-container">
                 <div class="table-title-wrapper">
                     <div>Voters</div>
-                    <div><button (click)="createV()">+</button></div>
+                    <button (click)="openDialog(votingTypes.Voter)">+</button>
                 </div>
                 
                 <div class="column-titles-wrapper">
@@ -28,7 +28,7 @@
             <div class="candidates-container">
                 <div class="table-title-wrapper">
                     <div>Candidates</div>
-                    <div><button (click)="createC()">+</button></div>
+                    <button (click)="openDialog(votingTypes.Candidate)">+</button>
                 </div>
 
                 <div class="column-titles-wrapper">
@@ -53,8 +53,33 @@
         <h1>Voting App</h1>
 
         <section class="voting-section">
+            <form [formGroup]="form">
+                <mat-form-field>
+                    <mat-label>I am</mat-label>
+                    <select
+                        matNativeControl
+                        formControlName="VoterId">
+                        @for (voter of voters; track voter.Id) {
+                            @if(!voter.HasVoted){
+                                <option [value]="voter.Id">{{voter.FullName}}</option>
+                            }
+                        }
+                    </select>
+                </mat-form-field>
+    
+                <mat-form-field>
+                    <mat-label>I vote for</mat-label>
+                    <select
+                        matNativeControl
+                        formControlName="CandidateId">
+                        @for (candidate of candidates; track candidate.Id) {
+                            <option [value]="candidate.Id">{{candidate.FullName}}</option>
+                        }
+                    </select>
+                </mat-form-field>
+            </form>
 
-
+            <button (click)="castVote()">submit</button>
         </section>
     </body>
 </main>

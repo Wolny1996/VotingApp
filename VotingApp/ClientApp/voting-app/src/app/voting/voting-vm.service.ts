@@ -38,36 +38,43 @@ import { CandidatesService } from "./candidates.service";
         return this.candidatesService.addCandidate(fullName).pipe(
           catchError(() => {
             return EMPTY;
-          }),
-        )
-      }
-    ));
+          })
+        );
+      }),
+      switchMap(() => {
+        return this.candidatesService.getCandidates().pipe(
+          catchError(() => {
+            return EMPTY;
+          })
+        );
+      }),
+      map((candidates) => (vm: VotingVM) => ({
+        ...vm,
+        Candidates: candidates,
+      }))
+    );
 
     private addVoterSubject = new Subject<string>();
     private addVoterAction$ = this.addVoterSubject.asObservable().pipe(
       switchMap((fullName: string) => {
         return this.votersService.addVoter(fullName).pipe(
-          switchMap(() => {
-            console.log("d");
-    
-            return this.votersService.getVoters().pipe(
-              catchError(() => {
-                return EMPTY;
-              })
-            );
-          }),
+          catchError(() => {
+            return EMPTY;
+          })
         );
       }),
-      tap(() => console.log("jestem")),
-      this.mapData()
-    );
-
-    private mapData() {
-      return map((voters) => (vm: VotingVM) => ({
+      switchMap(() => {
+        return this.votersService.getVoters().pipe(
+          catchError(() => {
+            return EMPTY;
+          })
+        );
+      }),
+      map((voters) => (vm: VotingVM) => ({
         ...vm,
         Voters: voters,
-      }));
-    }
+      }))
+    );
 
     private getDataForVotingSubject = new Subject<void>();
     private getDataForVotingAction$ = this.getDataForVotingSubject.asObservable().pipe(
@@ -97,8 +104,12 @@ import { CandidatesService } from "./candidates.service";
             return EMPTY;
           }),
         )
-      }
-    ));
+      }),
+      tap(() => this.getDataForVoting()),
+      map(() => (vm: VotingVM) => ({
+        ...vm,
+      }))
+    );
   
     /** VM definition */
     vm$ = merge(

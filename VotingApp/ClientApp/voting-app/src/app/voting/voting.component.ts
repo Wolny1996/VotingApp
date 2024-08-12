@@ -19,7 +19,7 @@ export class VotingComponent implements AfterViewInit, OnDestroy {
   private subscriptions: Subscription = new Subscription();
 
   constructor(public votingVMService: VotingVMService) {
-    this.vm$ = this.votingVMService.vm$.pipe(tap(x => console.log(x, "pipe")));
+    this.vm$ = this.votingVMService.vm$;
   }
 
   ngAfterViewInit(): void {

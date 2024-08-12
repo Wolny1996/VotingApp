@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 
-import { Observable } from "rxjs";
+import { catchError, Observable, throwError } from "rxjs";
 import { tap } from 'rxjs/internal/operators/tap';
 
 import { IApiBaseActions, ParamsType } from "./api-base-actions.interface";
@@ -43,9 +43,9 @@ export class ApiService implements IApiBaseActions {
   }
 
   private handleResponse(response: any) {
-    if (response.Status === 403) {
-      //this.window.location.replace(response.error);
-    }
+    catchError(() => {
+      return throwError(response);
+    });
   }
 
   private createParams(params?: ParamsType) {

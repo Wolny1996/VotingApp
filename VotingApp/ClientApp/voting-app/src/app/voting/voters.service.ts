@@ -19,12 +19,11 @@ import { ApiService } from "./api.service";
     }
   
     getVoters(): Observable<Voter[]> {
-      console.log("vot");
       return this.apiService.get(`https://localhost:44346/Voters/get-voters`);
     }
 
     vote(candidateId: number, voterId: number): Observable<any> {
-      return this.apiService.put(`Voters/voter-voted`, {
+      return this.apiService.put(`https://localhost:44346/Voters/voter-voted`, {
         CandidateId: candidateId,
         VoterId: voterId,
       });

@@ -1,0 +1,16 @@
+<mat-dialog-content>
+  <p>First and last name</p>
+
+  <mat-form-field>
+    <mat-label>Full name</mat-label>
+    <input matInput (keyup)="save($any($event).target.value)" />
+  </mat-form-field>
+
+  <div>
+    <mat-hint>5-50 characters</mat-hint>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="add()">Add</button>
+</mat-dialog-actions>
