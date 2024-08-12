@@ -17,7 +17,7 @@ public class CandidatesController(
 
         var result = await _sender.Send(query);
         return result.IsSuccess
-            ? Ok(result.Value)
+            ? Ok(result.Value.Candidates)
             : HandleFailure(result.Error);
     }
 

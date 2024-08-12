@@ -1,6 +1,10 @@
 <ng-container *ngIf="vm$ | async as vm">
     <app-voting-view
         [candidates]="vm.Candidates"
-        [voters]="vm.Voters">
+        [voters]="vm.Voters"
+        
+        (addCandidate)="votingVMService.addCandidate($event)"
+        (addVoter)="votingVMService.addVoter($event)"
+        (vote)="votingVMService.vote($event)">
     </app-voting-view>
 </ng-container>

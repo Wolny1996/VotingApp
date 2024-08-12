@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
+import { Component, Input, AfterViewInit, Output, EventEmitter } from '@angular/core';
 
 import { Candidate, Voter } from '../voting-vm.service';
 import { CommonModule } from '@angular/common';
@@ -10,21 +10,24 @@ import { CommonModule } from '@angular/common';
   templateUrl: './voting-view.component.html',
   styleUrl: './voting-view.component.scss'
 })
-export class VotingViewComponent implements OnInit, AfterViewInit {
+export class VotingViewComponent implements AfterViewInit {
   @Input() candidates: Candidate[] = [];
   @Input() voters: Voter[] = [];
 
-  hehe: string[] = ["a", "b"]; 
+  @Output() addCandidate: EventEmitter<string> = new EventEmitter();
+  @Output() addVoter: EventEmitter<string> = new EventEmitter();
+  @Output() vote: EventEmitter<{candidateId: number, voterId: number}> = new EventEmitter();
 
-  ngOnInit(): void {
-    console.log("child on init");
+  ngAfterViewInit(): void {
     console.log(this.candidates);
     console.log(this.voters);
   }
 
-  ngAfterViewInit(): void {
-    console.log("child after");
-    console.log(this.candidates);
-    console.log(this.voters);
+  createC(): void {
+    this.addCandidate.emit("HeheC");
+  }
+
+  createV(): void {
+    this.addVoter.emit("HeheV");
   }
 }

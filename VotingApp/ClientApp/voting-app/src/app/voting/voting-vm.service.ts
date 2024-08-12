@@ -15,21 +15,67 @@ import { CandidatesService } from "./candidates.service";
     }
   
     /** Calls */
+    addCandidate(fullName: string): void {
+      this.addCandidateSubject.next(fullName);
+    }
+
+    addVoter(fullName: string): void {
+      this.addVoterSubject.next(fullName);
+    }
+
     getDataForVoting(): void {
-      console.log("next");
       this.getDataForVotingSubject.next();
+    }
+
+    vote(vote: {candidateId: number, voterId: number}): void {
+      this.voteSubject.next(vote);
     }
   
     /** Subjects */
+    private addCandidateSubject = new Subject<string>();
+    private addCandidateAction$ = this.addCandidateSubject.asObservable().pipe(
+      switchMap((fullName: string) => {
+        return this.candidatesService.addCandidate(fullName).pipe(
+          catchError(() => {
+            return EMPTY;
+          }),
+        )
+      }
+    ));
+
+    private addVoterSubject = new Subject<string>();
+    private addVoterAction$ = this.addVoterSubject.asObservable().pipe(
+      switchMap((fullName: string) => {
+        return this.votersService.addVoter(fullName).pipe(
+          switchMap(() => {
+            console.log("d");
+    
+            return this.votersService.getVoters().pipe(
+              catchError(() => {
+                return EMPTY;
+              })
+            );
+          }),
+        );
+      }),
+      tap(() => console.log("jestem")),
+      this.mapData()
+    );
+
+    private mapData() {
+      return map((voters) => (vm: VotingVM) => ({
+        ...vm,
+        Voters: voters,
+      }));
+    }
+
     private getDataForVotingSubject = new Subject<void>();
     private getDataForVotingAction$ = this.getDataForVotingSubject.asObservable().pipe(
       switchMap(() => {
-        console.log("sub");
         return forkJoin([
             this.candidatesService.getCandidates(),
             this.votersService.getVoters(),
         ]).pipe(
-          tap(x => console.log(x, "sub")),
           catchError(() => {
             return EMPTY;
           })
@@ -41,10 +87,25 @@ import { CandidatesService } from "./candidates.service";
         Voters: voters,
       } as VotingVM))
     );
+
+    private voteSubject = new Subject<{candidateId: number, voterId: number}>();
+    private voteAction$ = this.voteSubject.asObservable().pipe(
+      switchMap(({candidateId, voterId}) => {
+        return this.votersService.vote(candidateId, voterId).pipe(
+          tap(() => this.getDataForVoting),
+          catchError(() => {
+            return EMPTY;
+          }),
+        )
+      }
+    ));
   
     /** VM definition */
     vm$ = merge(
+      this.addCandidateAction$,
+      this.addVoterAction$,
       this.getDataForVotingAction$,
+      this.voteAction$
     ).pipe(
       scan(
         (
@@ -76,3 +137,8 @@ import { CandidatesService } from "./candidates.service";
   export interface Voter extends Person {
     HasVoted: boolean;
   };
+
+  export interface Vote {
+    CandidateId: number;
+    VoterId: number;
+  }

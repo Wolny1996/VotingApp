@@ -18,7 +18,7 @@ public class VotersController(
 
         var result = await _sender.Send(query);
         return result.IsSuccess
-            ? Ok(result.Value)
+            ? Ok(result.Value.Voters)
             : HandleFailure(result.Error);
     }
 

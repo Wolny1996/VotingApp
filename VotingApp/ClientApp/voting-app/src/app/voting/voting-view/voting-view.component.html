@@ -1,32 +1,59 @@
-<p>voting-view works!</p>
-
 <main>
-    <title>
-        Voting App
-    </title>
-
     <body>
+        <h1>Voting App</h1>
+
         <section class="tables-section">
-            @for (voter of voters; track voter.Id) {
-                <div>{{voter.FullName}}</div>
-                <div>{{voter.HasVoted}}</div>
-            }
-            @empty {
-                <span>No items found</span>
-            }
-            <!-- <div style="background-color: yellow;" *@for="let voter of voters"> -->
+            <div class="voters-container">
+                <div class="table-title-wrapper">
+                    <div>Voters</div>
+                    <div><button (click)="createV()">+</button></div>
+                </div>
+                
+                <div class="column-titles-wrapper">
+                    <div>Name</div>
+                    <div>Has voted</div>
+                </div>
 
-            <!-- </div> -->
+                @for (voter of voters; track voter.Id) {
+                    <div class="voter-wrapper">
+                        <div>{{voter.FullName}}</div>
+                        <div>{{voter.HasVoted}}</div>
+                    </div>
+                }
+                @empty {
+                    <span>No items found</span>
+                }
+            </div>
 
-            <!-- <div style="background-color: green;" *@for="let candidate of candidates">
-                <div>{{candidate.FullName}}</div>
-                <div>{{candidate.NumberOfVotes}}</div>
-            </div> -->
+            <div class="candidates-container">
+                <div class="table-title-wrapper">
+                    <div>Candidates</div>
+                    <div><button (click)="createC()">+</button></div>
+                </div>
+
+                <div class="column-titles-wrapper">
+                    <div>Name</div>
+                    <div>Votes</div>
+                </div>
+
+                @for (candidate of candidates; track candidate.Id) {
+                    <div class="candidate-wrapper">
+                        <div>{{candidate.FullName}}</div>
+                        <div>{{candidate.NumberOfVotes}}</div>
+                    </div>
+                }
+                @empty {
+                    <span>No items found</span>
+                }
+            </div>
         </section>
 
         <hr>
-        
+
+        <h1>Voting App</h1>
+
         <section class="voting-section">
+
 
         </section>
     </body>

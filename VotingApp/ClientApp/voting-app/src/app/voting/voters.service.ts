@@ -13,7 +13,7 @@ import { ApiService } from "./api.service";
     }
   
     addVoter(voterFullName: string): Observable<any> {
-      return this.apiService.post(`Voters/add-voter`, {
+      return this.apiService.post(`https://localhost:44346/Voters/add-voter`, {
         FullName: voterFullName,
       });
     }
@@ -23,7 +23,7 @@ import { ApiService } from "./api.service";
       return this.apiService.get(`https://localhost:44346/Voters/get-voters`);
     }
 
-    vote(candidateId: number, voterId: number): Observable<Voter[]> {
+    vote(candidateId: number, voterId: number): Observable<any> {
       return this.apiService.put(`Voters/voter-voted`, {
         CandidateId: candidateId,
         VoterId: voterId,

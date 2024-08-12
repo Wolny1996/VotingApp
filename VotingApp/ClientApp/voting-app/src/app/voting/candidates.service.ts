@@ -13,13 +13,12 @@ import { ApiService } from "./api.service";
     }
   
     addCandidate(voterFullName: string): Observable<any> {
-      return this.apiService.post(`Candidates/add-candidate`, {
+      return this.apiService.post(`https://localhost:44346/Candidates/add-candidate`, {
         FullName: voterFullName,
       });
     }
   
     getCandidates(): Observable<Candidate[]> {
-      console.log("can");
       return this.apiService.get(`https://localhost:44346/Candidates/get-candidates`);
     }
   }
