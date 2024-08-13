@@ -31,9 +31,9 @@ export class VotingViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      CandidateId: new FormControl(0),
-      VoterId: new FormControl(0),
-    }, { validators: Validators.required });
+      CandidateId: new FormControl(null, [Validators.required]),
+      VoterId: new FormControl(null, [Validators.required]),
+    });
   }
 
   openDialog(votingType: VotingType): void {
