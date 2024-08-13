@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { Candidate } from "./voting-vm.service";
-import { ApiService } from "./services/api.service";
+import { ApiService } from "./api.service";
 import { environment } from "../../environment";
 
 @Injectable({

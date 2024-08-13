@@ -80,11 +80,11 @@
                             <option [value]="candidate.Id">{{candidate.FullName}}</option>
                         }
                     </select>
-                </mat-form-field>
 
-                @if (candidateFormControl.invalid && candidateFormControl.hasError("required")) {
-                    <mat-error>Candidate is required.</mat-error>
-                }
+                    @if (candidateFormControl.invalid && candidateFormControl.hasError("required")) {
+                        <mat-error>Candidate is required.</mat-error>
+                    }
+                </mat-form-field>
             </form>
 
             <button (click)="castVote()">submit</button>

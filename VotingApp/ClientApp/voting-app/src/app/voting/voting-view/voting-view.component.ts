@@ -7,7 +7,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatDialog } from '@angular/material/dialog';
 
 import { AddModal } from '../components/add-modal/add-modal';
-import { Candidate, Voter } from '../voting-vm.service';
+import { Candidate, Voter } from '../services/voting-vm.service';
 
 @Component({
   selector: 'app-voting-view',

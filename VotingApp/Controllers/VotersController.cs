@@ -19,7 +19,7 @@ public class VotersController(
         var result = await _sender.Send(query);
         return result.IsSuccess
             ? Ok(result.Value.Voters)
-            : HandleFailure(result.Error);
+            : HandleFailure(result);
     }
 
     [HttpPost]
@@ -31,7 +31,7 @@ public class VotersController(
         var result = await _sender.Send(command);
         return result.IsSuccess
             ? Ok()
-            : HandleFailure(result.Error);
+            : HandleFailure(result);
     }
 
     [HttpPut]
@@ -45,6 +45,6 @@ public class VotersController(
         var result = await _sender.Send(command);
         return result.IsSuccess
             ? Ok()
-            : HandleFailure(result.Error);
+            : HandleFailure(result);
     }
 }

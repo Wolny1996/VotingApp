@@ -6,6 +6,9 @@ internal sealed class VoterVotedCommandValidator
 {
     public VoterVotedCommandValidator()
     {
+        RuleFor(c => c.CandidateId)
+            .NotEmpty();
+
         RuleFor(c => c.VoterId)
             .NotEmpty();
     }

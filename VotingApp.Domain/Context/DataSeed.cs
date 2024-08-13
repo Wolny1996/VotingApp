@@ -7,13 +7,13 @@ public static class DataSeed
     public static void Seed(VotingAppContext context)
     {
         context.Candidates.AddRange(
-            new Candidate("C1"),
-            new Candidate("C2")
+            new Candidate("Kyrre Bastion"),
+            new Candidate("Fiona Inferno")
         );
 
         context.Voters.AddRange(
-            new Voter("V1"),
-            new Voter("V2")
+            new Voter("Bron Fortress "),
+            new Voter("Crag Hack Stronghold")
         );
 
         context.SaveChanges();

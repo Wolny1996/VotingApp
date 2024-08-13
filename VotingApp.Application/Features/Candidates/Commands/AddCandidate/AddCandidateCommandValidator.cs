@@ -8,6 +8,7 @@ internal sealed class AddCandidateCommandValidator
     {
         RuleFor(c => c.FullName)
             .NotEmpty()
+            .MinimumLength(5)
             .MaximumLength(50);
     }
 }
