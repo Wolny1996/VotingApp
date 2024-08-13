@@ -65,6 +65,10 @@
                             }
                         }
                     </select>
+
+                    @if (voterFormControl.invalid && voterFormControl.hasError("required")) {
+                        <mat-error>Voter is required.</mat-error>
+                    }
                 </mat-form-field>
     
                 <mat-form-field>
@@ -77,6 +81,10 @@
                         }
                     </select>
                 </mat-form-field>
+
+                @if (candidateFormControl.invalid && candidateFormControl.hasError("required")) {
+                    <mat-error>Candidate is required.</mat-error>
+                }
             </form>
 
             <button (click)="castVote()">submit</button>

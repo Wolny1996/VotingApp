@@ -36,6 +36,14 @@ export class VotingViewComponent implements OnInit {
     });
   }
 
+  get voterFormControl() : FormControl {
+    return this.form.get("VoterId") as FormControl;
+  }
+ 
+  get candidateFormControl() : FormControl {
+    return this.form.get("CandidateId") as FormControl;
+  }
+
   openDialog(votingType: VotingType): void {
     const dialogRef = this.dialog.open(AddModal, {
       data: votingType,
@@ -59,7 +67,7 @@ export class VotingViewComponent implements OnInit {
   }
 
   castVote(): void {
-    this.form.markAsTouched();
+    this.form.markAllAsTouched();
 
     if (this.form.valid) {
       let data = this.form.getRawValue();
@@ -70,6 +78,7 @@ export class VotingViewComponent implements OnInit {
       }
 
       this.vote.emit(model);
+      this.form.reset();
     }
   }
 }

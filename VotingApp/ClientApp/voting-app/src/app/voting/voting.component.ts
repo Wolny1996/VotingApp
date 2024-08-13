@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Observable, Subscription, tap } from 'rxjs';
 
 import { VotingViewComponent } from './voting-view/voting-view.component';
-import { VotingVM, VotingVMService } from './voting-vm.service';
+import { VotingVM, VotingVMService } from './services/voting-vm.service';
 
 @Component({
   selector: 'app-voting',
